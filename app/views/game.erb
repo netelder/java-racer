@@ -1,47 +1,9 @@
 <table class="racer_table">
   <tr id="player1_strip">
-    <td class="active"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <%= _track_length(@track_length) %>
   </tr>
   <tr id="player2_strip">
-    <td class="active"></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
+    <%= _track_length(@track_length) %>
   </tr>
 </table>
 
@@ -51,7 +13,7 @@
     <input id="restart-button" type="submit" value="Restart">
 </form>
 
-<a href="/game/<%= @game.id %>/stats">SEE STATS</a>
+<a href="/games/<%= @game.id %>/stats">SEE STATS</a>
 
 <!-- Hidden submit scores form/button -->
 
