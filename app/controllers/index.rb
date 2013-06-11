@@ -34,13 +34,15 @@ post '/store-stats' do
   player1_stats = GamesPlayer.where('game_id = ? and player_id = ?', params[:game_id], player1.id)[0]
   player2_stats = GamesPlayer.where('game_id = ? and player_id = ?', params[:game_id], player2.id)[0]
 
-  player1_stats.time = params[:player1_time]
-  player1_stats.winner = player1_winner
-  player1_stats.save
-
-  player2_stats.time = params[:player2_time]
-  player2_stats.winner = player2_winner
-  player2_stats.save
+  if (player1_stats.time == nil) && (player2_stats.time == nil)
+    player1_stats.time = params[:player1_time]
+    player1_stats.winner = player1_winner
+    player1_stats.save
+    
+    player2_stats.time = params[:player2_time]
+    player2_stats.winner = player2_winner
+    player2_stats.save
+  end
 end
 
 get '/game/:id/stats' do
