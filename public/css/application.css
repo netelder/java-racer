@@ -4,12 +4,8 @@
   width: 30px;
 }
 
-.racer_table #player1_strip td.active {
+.racer_table td.active {
   background-color: red;
-}
-
-.racer_table #player2_strip td.active {
-  background-color: blue;
 }
 
 tr td {

@@ -60,13 +60,21 @@
 //   });
 // });
 
+function Board() {}
+
+Board.prototype.render = function(players) {
+  players.map(function(player) {
+    $('#' + player.initials).find('td').removeClass('active');
+    $('#' + player.initials).find('td:nth-child(' + player.position + ')').addClass('active');
+  });
+}
 
 function Game(game_id) {
   var game_id = game_id;
   var track_length = null;
-  var all_player_data = null;
   var start_time = null;
   var players = [];
+  var board = new Board();
 
   this.initialize = function() {
     $.ajax({
@@ -75,47 +83,51 @@ function Game(game_id) {
     }).done(function(response) {
       var game_data = $.parseJSON(response);
       var all_player_data = game_data['all_player_data'];
-      var track_length = game_data['track_length']; 
+      track_length = game_data['track_length']; 
       create_players(all_player_data);
     });
   };
 
   create_players = function(player_list) { 
-    player_list.map( function(player_data) {
+    player_list.map(function(player_data) {
       players.push(new Player(player_data));
     });
   };
 
+
   this.onKeyUp = function(key) {
     players.map(function(player) {
       if (player.key == key) {
-        player.move();
+        if (checkGameOver(player.move())) {
+          console.log('game over');
+          // this.onKeyUp = null;
+          // jump to end of game method
+        };
       }
     });
-    // render to browser
-    
+    board.render(players);
   };
 
   this.start = function() {
     this.start_time = new Date().getTime();
   };
 
-  this.end = function() {};
-
-}
-
-
-function Player(player_data) {
-  this.initials = player_data[0];
-  this.key = player_data[1];
-  var position = 0;
-
-  this.move = function() {
-    position++;
+  checkGameOver = function(position) {
+    return (position >= track_length);
   };
 
 }
 
+function Player(player_data) {
+  this.initials = player_data[0];
+  this.key = player_data[1];
+  this.position = 1;
+}
+
+Player.prototype.move = function() {
+  this.position++;
+  return this.position;
+}
 
 $(document).ready(function() {
   // alert("Click OK to start game!");
