@@ -11,3 +11,9 @@
 tr td {
   border: 1px solid black;
 }
+
+#timer {
+  font-size: 24px;
+  color: orange;
+  font-style: italic;
+}

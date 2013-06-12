@@ -2,8 +2,11 @@
   <h1>Welcome to Java Racer!</h1>
 
   <form id="start-game" action='/' method='post'>
-    <input id="player1-box" type="text" name="player1" placeholder="Player 1">
-    <input id="player2-box" type="text" name="player2" placeholder="Player 2">
+    <ul id="player-list">
+      <li><input class="player-field" type="text" name="players[1]" placeholder="Player 1"></li>
+      <li><input class="player-field" type="text" name="players[2]" placeholder="Player 2"></li>
+    </ul>
+    <button id="add-player">Add Player</button>
     <select name="track_length">
       <option value="10">Short</option>
       <option value="15">Medium</option>

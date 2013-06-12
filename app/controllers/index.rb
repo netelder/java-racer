@@ -5,22 +5,19 @@ get '/' do
 end
 
 post '/' do
-  player1 = Player.find_or_create_by_initials(params[:player1])
-  player2 = Player.find_or_create_by_initials(params[:player2])
-  if player1.valid? && player2.valid?
-    game = Game.create(track_length: params[:track_length]) 
-    game.players << [ player1, player2 ]
-    redirect "/games/#{game.id}"
-  else
-    redirect '/'
+  game = Game.create(track_length: params[:track_length])
+  params[:players].each do |player|
+    next if player[1] == ""
+    game.players << Player.find_or_create_by_initials(player[1])
   end
+  redirect "/games/#{game.id}"
 end
 
 get '/games/:id' do
   @game = Game.find(params[:id])
-  @track_length = @game.track_length
-  @player1 = @game.players[0]
-  @player2 = @game.players[1]
+  # @track_length = @game.track_length
+  # @player1 = @game.players[0]
+  # @player2 = @game.players[1]
   erb :game
 end
 

@@ -1,9 +1,3 @@
 <table class="racer_table"></table>
 
-<form id="restart-form" action="/" method="post">
-    <input type="hidden" name="player1" value="<%= @player1.initials %>">
-    <input type="hidden" name="player2" value="<%= @player2.initials %>">
-    <input id="restart-button" type="submit" value="Restart">
-</form>
-
 <a href="/games/<%= @game.id %>/stats">SEE STATS</a>
