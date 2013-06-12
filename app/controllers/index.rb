@@ -1,3 +1,5 @@
+require 'json'
+
 get '/' do
   erb :index
 end
@@ -31,11 +33,9 @@ post '/store-stats' do
 
   if (player1_stats.time == nil) && (player2_stats.time == nil)
     player1_stats.time = params[:player1_time]
-    player1_stats.winner = player1_winner
     player1_stats.save
     
     player2_stats.time = params[:player2_time]
-    player2_stats.winner = player2_winner
     player2_stats.save
   end
 end
@@ -47,7 +47,20 @@ get '/games/:id/stats' do
   # stats = GamesPlayer.where('game_id = ?', game.id)
   # @player1_time = stats[0].time
   # @player2_time = stats[1].time
-  # @winner = stats[0].winner == 1 ? @player1 : @player2
-  # @loser = stats[0].winner == 1 ? @player2 : @player1
   erb :game_stats
+end
+
+get '/ajax/:id' do
+  game = Game.find(params[:id])
+  track_length = game[:track_length]
+  keys = [81, 80, 90, 77, 87, 79, 88, 78]
+
+  player_data = []
+  game.players.each_with_index do |player, index|
+    player_data << [player[:initials], keys[index]]
+  end
+
+  data = { all_player_data: player_data,
+           track_length: track_length}
+  data.to_json
 end
