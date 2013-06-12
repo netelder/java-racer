@@ -24,29 +24,15 @@ get '/games/:id' do
   erb :game
 end
 
-post '/store-stats' do
-  player1 = Player.find_by_initials(params[:player1_initials])
-  player2 = Player.find_by_initials(params[:player2_initials])
-  
-  player1_stats = GamesPlayer.where('game_id = ? and player_id = ?', params[:game_id], player1.id)[0]
-  player2_stats = GamesPlayer.where('game_id = ? and player_id = ?', params[:game_id], player2.id)[0]
-
-  if (player1_stats.time == nil) && (player2_stats.time == nil)
-    player1_stats.time = params[:player1_time]
-    player1_stats.save
-    
-    player2_stats.time = params[:player2_time]
-    player2_stats.save
-  end
-end
-
 get '/games/:id/stats' do
-  # game = Game.find(params[:id])
-  # @player1 = game.players[0]
-  # @player2 = game.players[1]
-  # stats = GamesPlayer.where('game_id = ?', game.id)
-  # @player1_time = stats[0].time
-  # @player2_time = stats[1].time
+  game = Game.find(params[:id])
+  game_stats = GamesPlayer.where('game_id = ?', game.id)
+  game_stats.each do |player|
+    if player[:time]
+      @player = Player.find(player[:player_id]) 
+      @time = player[:time].to_f / 1000
+    end
+  end
   erb :game_stats
 end
 

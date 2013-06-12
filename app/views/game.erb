@@ -7,14 +7,3 @@
 </form>
 
 <a href="/games/<%= @game.id %>/stats">SEE STATS</a>
-
-<!-- Hidden submit scores form/button -->
-
-<form id="game-form" action="/store-stats" method="post">
-    <input type="hidden" name="player1_initials" value="<%= @player1.initials %>">
-    <input type="hidden" name="player2_initials" value="<%= @player2.initials %>">
-    <input id="player1_time" type="hidden" name="player1_time">
-    <input id="player2_time" type="hidden" name="player2_time">
-    <input type="hidden" name="game_id" value="<%= @game.id %>">
-    <input id="finish-button" style="display: none;" type="submit">
-</form>
