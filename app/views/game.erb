@@ -1,11 +1,4 @@
-<table class="racer_table">
-  <tr id="<%= @player1.initials %>">
-    <%= _build_track(@track_length) %>
-  </tr>
-  <tr id="<%= @player2.initials %>">
-    <%= _build_track(@track_length) %>
-  </tr>
-</table>
+<table class="racer_table"></table>
 
 <form id="restart-form" action="/" method="post">
     <input type="hidden" name="player1" value="<%= @player1.initials %>">

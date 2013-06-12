@@ -64,3 +64,13 @@ get '/ajax/:id' do
            track_length: track_length}
   data.to_json
 end
+
+post '/ajax/:id' do
+  p "--------------#{params[:initials]}"
+  player = Player.find_by_initials(params[:initials])
+  p player
+  player_stats = GamesPlayer.where('game_id = ? and player_id = ?', params[:id], player.id)[0]
+  p player_stats
+  player_stats.time = params[:finish_time]
+  player_stats.save
+end
